@@ -8,6 +8,7 @@ import { type Event } from "../../shared/types/event.ts";
 import { ModeToggle } from "./components/mode-toggle.tsx";
 import { ThemeProvider } from "./components/theme-provider.tsx";
 
+
 const ClubPage = () => {
   const { id } = useParams<{ id: string }>();
   const [club, setClub] = useState<Club | null>(null);
@@ -31,6 +32,8 @@ const ClubPage = () => {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div style={{ padding: "1rem" }}>
         <ModeToggle />
+
+
         <h1>{club.name}</h1>
         <p>{club.description}</p>
         <h2>Events</h2>

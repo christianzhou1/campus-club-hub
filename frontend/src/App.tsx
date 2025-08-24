@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { Link } from "react-router-dom";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "./components/mode-toggle";
 
-interface Club {
-  id: number;
-  name: string;
-  description: string;
-}
+import { ClubListView } from "./components/ui/club-list-view";
+
+import { type Club } from "../../shared/types/club.ts";
 
 function App() {
   const [clubs, setClubs] = useState<Club[]>([]);
@@ -35,18 +33,11 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <ModeToggle />
+
+      <ClubListView clubs={clubs} />
+
       <div className="p-6">
         <h1 className="text-2xl">Campus Clubs</h1>
-        <ul className="space-y-3">
-          {clubs.map((club) => (
-            <li key={club.id}>
-              <Link to={`/clubs/${club.id}`}>
-                <strong>{club.name}</strong>
-              </Link>
-              := {club.description}
-            </li>
-          ))}
-        </ul>
       </div>
     </ThemeProvider>
   );
