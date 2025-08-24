@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { type Club } from "../../shared/types/club.ts";
 import { type Event } from "../../shared/types/event.ts";
 
+import { ModeToggle } from "./components/mode-toggle.tsx";
+import { ThemeProvider } from "./components/theme-provider.tsx";
+
 const ClubPage = () => {
   const { id } = useParams<{ id: string }>();
   const [club, setClub] = useState<Club | null>(null);
@@ -25,20 +28,23 @@ const ClubPage = () => {
   if (!club) return <p>Loading club...</p>;
 
   return (
-    <div style={{ padding: "1rem" }}>
-      <h1>{club.name}</h1>
-      <p>{club.description}</p>
-      <h2>Events</h2>
-      <ul>
-        {events.map((event) => (
-          <li key={event.id}>
-            <strong>{event.title}</strong> -{" "}
-            {new Date(event.date).toLocaleDateString()}
-            <p>{event.description}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div style={{ padding: "1rem" }}>
+        <ModeToggle />
+        <h1>{club.name}</h1>
+        <p>{club.description}</p>
+        <h2>Events</h2>
+        <ul>
+          {events.map((event) => (
+            <li key={event.id}>
+              <strong>{event.title}</strong> -{" "}
+              {new Date(event.date).toLocaleDateString()}
+              <p>{event.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </ThemeProvider>
   );
 };
 
